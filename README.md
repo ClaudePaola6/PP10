@@ -56,7 +56,10 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **What does `typedef struct { ... } Point;` achieve compared to `struct Point { ... };`?**
+   typedef struct { ... } Point :Allows you to use Point directly
+struct Point { ... } : Requires using struct Point when declaring variables.
 2. **How does the compiler lay out a `Point` in memory?**
+   The Point struct is tightly packed with x followed by y in memory, using 16 bytes total.
 
 ---
 
@@ -74,7 +77,9 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **Why is the `-lm` flag necessary to resolve `sqrt`?**
+   Because sqrt are defined in maths librairy. The -lm tells the linker to link against libm, which is a separate library from the standard C library.
 2. **What happens if you omit `-lm` when calling math functions?**
+   You will get an error because the compiler found the declaration (from ), but the linker couldn’t find the actual implementation of sqrt
 
 ---
 
@@ -105,7 +110,11 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **What are the advantages and drawbacks of a header-only library?**
+   Advantages: simplicity in usage , no linker error for missing symbols
+Drawbacks: longer compile time,code duplication
 2. **How does `static inline` affect linkage and code size?**
+   Static inline allow that each file gets its own copy
+increase binary size if inlining isn't optimized away
 
 ---
 
@@ -129,7 +138,10 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **Why must you include `solutions/util.o` when linking instead of just the header?**
+   Including solutions/util.o gives the linker the missing function body, satisfying that symbol.
 2. **What symbol resolution occurs at compile vs. link time?**
+   At compile the symbole util.h
+at link time the symbole util.o
 
 ---
 
@@ -160,8 +172,10 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **How does `ar` create an archive, and how does the linker find `-lutil`?**
+   ar Creates static libraries
+lutil Tells the linker to use libutil.a
 2. **What is the purpose of `ldconfig`?**
-
+ldconfig updates dynamic linker cache for share libs
 ---
 
 ### Task 5: Installing and Using `jansson`
@@ -197,7 +211,9 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **What files does `libjansson-dev` install, and where?**
+   libjansson-dev install hearder and libraries . They are placed in standard system directories.
 2. **How does the linker know where to find `-ljansson`?**
+   The linker finds -ljansson by searching default library paths
 
 ---
 
@@ -230,8 +246,10 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **What does `make install` do, and how does `PREFIX` affect installation paths?**
+   The make install command copies built files to system directories to make them available system-wide.
+The PREFIX variable lets you change the base installation path.
 2. **How can you inspect a library’s exported symbols to verify installation?**
-
+nm -D --defined-only libmylib.so
 ---
 
 **Remember:** Stop after **90 minutes** and record where you stopped.
